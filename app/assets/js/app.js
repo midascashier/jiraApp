@@ -5,6 +5,10 @@ import {ConnectorService} from './ConnectorService'
 class app{
     constructor(){
         Project.list().then((projects)=>{
+            AP.getLocation(function(location){
+                alert(location);
+            });
+
             this.projects = projects;
             let projectsList = document.createElement('select');
 
