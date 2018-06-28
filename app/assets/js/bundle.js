@@ -104,6 +104,12 @@ class connectorService {
         this.postMethod = 'POST';
         this.updateMethod = 'UPDATE';
         this.deleteMethod = 'DELETE';
+        this.url = '/atlassian-connect.json';
+
+        this.httpServiceAsync({}, this.getMethod).then((connect)=>{
+            this.url = connect.baseUrl;
+            alert(this.url)
+        })
     }
 
     getQueuesController(){
@@ -134,9 +140,9 @@ class connectorService {
         return new Promise((resolve) => {
             $.ajax({
                 type: method,
+                url: this.url,
                 data: request,
-                dataType: 'jsonp',
-                url: 'https://jira-midas.herokuapp.com/system/ServiceData.class.php'
+                dataType: 'jsonp'
             }).done(function(response){
                 resolve(response);
             }).fail(function(response){
