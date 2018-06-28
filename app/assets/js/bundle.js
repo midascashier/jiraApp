@@ -226,23 +226,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class project{
-    static list(){
+     list(){
         return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/project')
-    }
+     }
 
-    static info(project){
+     info(project){
         return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/project/' + project)
-    }
+     }
 
-    static getQueues(project){
+     getQueues(project){
         return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load(`/rest/servicedeskapi/servicedesk/${project}/queue`)
-    }
+     }
 
-    static getIssuesQueue(project, queue){
+     getIssuesQueue(project, queue){
         return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load(`/rest/servicedeskapi/servicedesk/${project}/queue/${queue}/issue`)
-    }
+     }
 
-    static changePriority(issueId, score){
+     changePriority(issueId, score){
         let issueData =  {
             "fields": {
                 "customfield_10069" : score
@@ -250,7 +250,7 @@ class project{
         };
 
         return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/issue/' + issueId, 'PUT', issueData)
-    }
+     }
 }
 
 let Project = new project();
