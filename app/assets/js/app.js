@@ -35,7 +35,9 @@ class app{
             queuesContent.id = appUI.queuesContent;
             document.getElementById(appUI.contentID).appendChild(queuesContent);
 
-            this.loadTopQueues();
+            ConnectorService.getIssuesTop().then((issues)=>{
+                console.log(issues)
+            });
         });
     }
 

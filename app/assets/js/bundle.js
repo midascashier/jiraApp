@@ -116,6 +116,14 @@ class connectorService {
         })
     }
 
+    getIssuesTop(){
+        let request = {
+            'document' : 'issuesTop'
+        };
+
+        return this.httpServiceAsync(request, this.getMethod);
+    }
+
     getQueuesController(){
         let request = {
             'document' : 'queues'
@@ -306,7 +314,9 @@ class app{
             queuesContent.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].queuesContent;
             document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).appendChild(queuesContent);
 
-            this.loadTopQueues();
+            _ConnectorService__WEBPACK_IMPORTED_MODULE_2__["ConnectorService"].getIssuesTop().then((issues)=>{
+                console.log(issues)
+            });
         });
     }
 

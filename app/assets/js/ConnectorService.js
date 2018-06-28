@@ -16,6 +16,14 @@ class connectorService {
         })
     }
 
+    getIssuesTop(){
+        let request = {
+            'document' : 'issuesTop'
+        };
+
+        return this.httpServiceAsync(request, this.getMethod);
+    }
+
     getQueuesController(){
         let request = {
             'document' : 'queues'
