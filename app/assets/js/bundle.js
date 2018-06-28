@@ -258,9 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 class app{
     constructor(){
         _Project__WEBPACK_IMPORTED_MODULE_1__["Project"].list().then((projects)=>{
-            AP.getLocation(function(location){
-                alert(location);
-            });
+            alert(baseUrl);
 
             this.projects = projects;
             let projectsList = document.createElement('select');
