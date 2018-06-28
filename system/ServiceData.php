@@ -32,6 +32,7 @@ class ServiceData
 
   private function postDocument(){
     $data = file_get_contents('php://input');
+    $data = json_decode($data, true);
 
     $currentDocument = Cache::getDocument($this->document);
     $document = ($currentDocument) ? array_merge($currentDocument, $data) : $data;
