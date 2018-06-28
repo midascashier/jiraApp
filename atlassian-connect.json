@@ -1,0 +1,30 @@
+{
+  "name": "Midas",
+  "key": "midas-app",
+  "description": "Midas automation app",
+  "baseUrl": "https://jira-midas.herokuapp.com",
+  "vendor": {
+    "name": "Midas App",
+    "url": "https://jira-midas.herokuapp.com"
+  },
+  "links": {
+    "self": "https://jira-midas.herokuapp.com/atlassian-connect.json"
+  },
+  "authentication": {
+    "type": "none"
+  },
+  "scopes": ["ADMIN"],
+  "apiVersion": 1,
+  "modules": {
+    "generalPages": [
+      {
+        "url": "app/app.html",
+        "key": "Midas",
+        "location": "system.top.navigation.bar",
+        "name": {
+          "value": "Midas"
+        }
+      }
+    ]
+  }
+}

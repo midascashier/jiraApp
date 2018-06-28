@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "compile": [
+            "chmod -R 755 system/"
+        ]
+    },
+    "require": {
+        "firebase/php-jwt": "^5.0"
+    }
+}
