@@ -96,6 +96,11 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectorService", function() { return ConnectorService; });
+/* harmony import */ var _appUI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./appUI */ "./app/assets/js/appUI.js");
+/* harmony import */ var _PrettyLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrettyLoader */ "./app/assets/js/PrettyLoader.js");
+
+
+
 class connectorService {
 
     constructor(){
@@ -129,6 +134,34 @@ class connectorService {
     }
 
     /**
+     * Load Jira REST FULL API action
+     * 
+     * @param action
+     * @param method
+     * @param data
+     * @returns {Promise}
+     */
+    load(action, method = this.getMethod, data = {}){
+        Object(_PrettyLoader__WEBPACK_IMPORTED_MODULE_1__["PrettyLoader"])(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].elementLoad);
+
+        return new Promise((resolve)=>{
+            AP.request(action, {
+                type: method,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function(response){
+                    console.log(response);
+                    resolve(JSON.parse(response))
+                },
+                error: function(e){
+                    console.log(e);
+                    document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).innerHTML = e
+                }
+            })
+        })
+    }
+
+    /**
      * Http post service that returns a Promise
      *
      * @param request
@@ -136,6 +169,8 @@ class connectorService {
      * @returns {Promise}
      */
     httpServiceAsync(request, method){
+        Object(_PrettyLoader__WEBPACK_IMPORTED_MODULE_1__["PrettyLoader"])(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].elementLoad);
+
         return new Promise((resolve) => {
             $.ajax({
                 type: method,
@@ -187,56 +222,34 @@ let PrettyLoader = function(element){
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Project", function() { return Project; });
-/* harmony import */ var _appUI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./appUI */ "./app/assets/js/appUI.js");
-/* harmony import */ var _PrettyLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrettyLoader */ "./app/assets/js/PrettyLoader.js");
-
+/* harmony import */ var _ConnectorService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ConnectorService */ "./app/assets/js/ConnectorService.js");
 
 
 class project{
-    load(action, method = 'GET', data = {}){
-        Object(_PrettyLoader__WEBPACK_IMPORTED_MODULE_1__["PrettyLoader"])(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].elementLoad);
-
-        return new Promise((resolve)=>{
-            AP.request(action, {
-                type: method,
-                contentType: "application/json",
-                data: JSON.stringify(data),
-                success: function(response){
-                    console.log(response);
-                    resolve(JSON.parse(response))
-                },
-                error: function(e){
-                    console.log(e);
-                    document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).innerHTML = e
-                }
-            })
-        })
+    static list(){
+        return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/project')
     }
 
-    list(){
-        return this.load('/rest/api/2/project')
+    static info(project){
+        return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/project/' + project)
     }
 
-    info(project){
-        return this.load('/rest/api/2/project/' + project)
+    static getQueues(project){
+        return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load(`/rest/servicedeskapi/servicedesk/${project}/queue`)
     }
 
-    getQueues(project){
-        return this.load(`/rest/servicedeskapi/servicedesk/${project}/queue`)
+    static getIssuesQueue(project, queue){
+        return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load(`/rest/servicedeskapi/servicedesk/${project}/queue/${queue}/issue`)
     }
 
-    getIssuesQueue(project, queue){
-        return this.load(`/rest/servicedeskapi/servicedesk/${project}/queue/${queue}/issue`)
-    }
-
-    changePriority(issueId, score){
+    static changePriority(issueId, score){
         let issueData =  {
             "fields": {
                 "customfield_10069" : score
             }
         };
 
-        return this.load('/rest/api/2/issue/' + issueId, 'PUT', issueData)
+        return _ConnectorService__WEBPACK_IMPORTED_MODULE_0__["ConnectorService"].load('/rest/api/2/issue/' + issueId, 'PUT', issueData)
     }
 }
 

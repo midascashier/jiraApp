@@ -1,3 +1,6 @@
+import appUI from './appUI'
+import {PrettyLoader} from './PrettyLoader'
+
 class connectorService {
 
     constructor(){
@@ -31,6 +34,34 @@ class connectorService {
     }
 
     /**
+     * Load Jira REST FULL API action
+     * 
+     * @param action
+     * @param method
+     * @param data
+     * @returns {Promise}
+     */
+    load(action, method = this.getMethod, data = {}){
+        PrettyLoader(appUI.elementLoad);
+
+        return new Promise((resolve)=>{
+            AP.request(action, {
+                type: method,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function(response){
+                    console.log(response);
+                    resolve(JSON.parse(response))
+                },
+                error: function(e){
+                    console.log(e);
+                    document.getElementById(appUI.contentID).innerHTML = e
+                }
+            })
+        })
+    }
+
+    /**
      * Http post service that returns a Promise
      *
      * @param request
@@ -38,6 +69,8 @@ class connectorService {
      * @returns {Promise}
      */
     httpServiceAsync(request, method){
+        PrettyLoader(appUI.elementLoad);
+
         return new Promise((resolve) => {
             $.ajax({
                 type: method,

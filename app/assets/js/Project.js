@@ -1,51 +1,30 @@
-import appUI from './appUI'
-import {PrettyLoader} from './PrettyLoader'
+import {ConnectorService} from './ConnectorService'
 
 class project{
-    load(action, method = 'GET', data = {}){
-        PrettyLoader(appUI.elementLoad);
-
-        return new Promise((resolve)=>{
-            AP.request(action, {
-                type: method,
-                contentType: "application/json",
-                data: JSON.stringify(data),
-                success: function(response){
-                    console.log(response);
-                    resolve(JSON.parse(response))
-                },
-                error: function(e){
-                    console.log(e);
-                    document.getElementById(appUI.contentID).innerHTML = e
-                }
-            })
-        })
+    static list(){
+        return ConnectorService.load('/rest/api/2/project')
     }
 
-    list(){
-        return this.load('/rest/api/2/project')
+    static info(project){
+        return ConnectorService.load('/rest/api/2/project/' + project)
     }
 
-    info(project){
-        return this.load('/rest/api/2/project/' + project)
+    static getQueues(project){
+        return ConnectorService.load(`/rest/servicedeskapi/servicedesk/${project}/queue`)
     }
 
-    getQueues(project){
-        return this.load(`/rest/servicedeskapi/servicedesk/${project}/queue`)
+    static getIssuesQueue(project, queue){
+        return ConnectorService.load(`/rest/servicedeskapi/servicedesk/${project}/queue/${queue}/issue`)
     }
 
-    getIssuesQueue(project, queue){
-        return this.load(`/rest/servicedeskapi/servicedesk/${project}/queue/${queue}/issue`)
-    }
-
-    changePriority(issueId, score){
+    static changePriority(issueId, score){
         let issueData =  {
             "fields": {
                 "customfield_10069" : score
             }
         };
 
-        return this.load('/rest/api/2/issue/' + issueId, 'PUT', issueData)
+        return ConnectorService.load('/rest/api/2/issue/' + issueId, 'PUT', issueData)
     }
 }
 
