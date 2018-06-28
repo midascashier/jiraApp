@@ -101,14 +101,13 @@ class connectorService {
     constructor(){
         this.dev = true;
         this.getMethod = 'GET';
+        this.putMethod = 'PUT';
         this.postMethod = 'POST';
-        this.updateMethod = 'UPDATE';
         this.deleteMethod = 'DELETE';
         this.url = '/atlassian-connect.json';
 
         this.httpServiceAsync({}, this.getMethod).then((connect)=>{
-            this.url = connect.baseUrl;
-            alert(this.url)
+            this.url = connect.baseUrl + '/system/ServiceData.php';
         })
     }
 
