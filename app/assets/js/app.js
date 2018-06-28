@@ -5,8 +5,6 @@ import {ConnectorService} from './ConnectorService'
 class app{
     constructor(){
         Project.list().then((projects)=>{
-            alert(baseUrl);
-
             this.projects = projects;
             let projectsList = document.createElement('select');
 
