@@ -25,8 +25,8 @@ class WebHookIssuesTop
     $data = json_decode($data, true);
 
     $issue = $data['issue'];
-    $type = $data['fields']['customfield_10013']['requestType']['name'];
-    $group = $data['fields']['customfield_10013']['requestType']['groupIds'];
+    $type = $issue['fields']['customfield_10013']['requestType']['name'];
+    $group = $issue['fields']['customfield_10013']['requestType']['groupIds'];
 
     $currentDocument = Cache::getDocument(self::Document);
 
