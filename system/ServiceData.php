@@ -32,9 +32,10 @@ class ServiceData
 
   private function postDocument(){
     $data = file_get_contents('php://input');
-    $object = json_decode($data);
 
-    return Cache::loadDocument($object->document, $object->data, false);
+    $currentDocument = Cache::getDocument($this->document);
+    $document = ($currentDocument) ? array_merge($currentDocument, $data) : $data;
+    return Cache::loadDocument($this->document, $document, false);
   }
 
   private function deleteDocument(){
