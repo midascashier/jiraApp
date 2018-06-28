@@ -31,7 +31,7 @@ class WebHookIssuesTop
     $currentDocument = Cache::getDocument(self::Document);
 
     $issue['group'] = $group;
-    if($currentDocument){
+    if(key_exists($type, $currentDocument)){
       $currentDocument[$type][$issue['id']] = $issue;
       $document = $currentDocument;
     }else{
