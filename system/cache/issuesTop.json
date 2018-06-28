@@ -1,6 +1,4 @@
 {
   "expired": false,
-  "document": {
-    "issue" : "test"
-  }
+  "document": false
 }
