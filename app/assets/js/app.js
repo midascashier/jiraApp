@@ -32,10 +32,6 @@ class app{
             appContent.innerHTML = null;
             appContent.appendChild(projectsList);
 
-            let topContentChart = document.createElement('div');
-            topContentChart.id = appUI.topContentChart;
-            document.getElementById(appUI.contentID).appendChild(topContentChart);
-
             ConnectorService.getIssuesTop().then((requestTypes)=>{
                 this.topIssuesChart()
             });
@@ -43,6 +39,9 @@ class app{
     }
 
     topIssuesChart(issuesRequestTypes){
+        let topContentChart = document.createElement('div');
+        topContentChart.id = appUI.topContentChart;
+        document.getElementById(appUI.contentID).appendChild(topContentChart);
         let topIssuesChart = new ChartManager('topChart', appUI.topContentChart);
 
         let data = {

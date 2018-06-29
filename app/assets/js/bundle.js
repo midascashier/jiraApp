@@ -343,10 +343,6 @@ class app{
             appContent.innerHTML = null;
             appContent.appendChild(projectsList);
 
-            let topContentChart = document.createElement('div');
-            topContentChart.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart;
-            document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).appendChild(topContentChart);
-
             _ConnectorService__WEBPACK_IMPORTED_MODULE_3__["ConnectorService"].getIssuesTop().then((requestTypes)=>{
                 this.topIssuesChart()
             });
@@ -354,6 +350,9 @@ class app{
     }
 
     topIssuesChart(issuesRequestTypes){
+        let topContentChart = document.createElement('div');
+        topContentChart.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart;
+        document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).appendChild(topContentChart);
         let topIssuesChart = new _ChartManager__WEBPACK_IMPORTED_MODULE_2__["ChartManager"]('topChart', _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart);
 
         let data = {
