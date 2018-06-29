@@ -111,7 +111,7 @@ class ChartManager{
     }
 
     pie(data, options = {}){
-        let pieChart = new chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(this.chart,{
+        new chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(this.chart,{
             type: 'pie',
             data: data,
             options: options

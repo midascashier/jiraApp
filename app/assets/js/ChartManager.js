@@ -11,7 +11,7 @@ export class ChartManager{
     }
 
     pie(data, options = {}){
-        let pieChart = new Chart(this.chart,{
+        new Chart(this.chart,{
             type: 'pie',
             data: data,
             options: options
