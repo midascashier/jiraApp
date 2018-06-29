@@ -102,7 +102,11 @@ __webpack_require__.r(__webpack_exports__);
 
 class ChartManager{
     constructor(name, container){
-        document.getElementById(container).innerHTML = `<canvas id="${name}" width="100%" height="100%"></canvas>`;
+        let chartContent = document.getElementById(container);
+
+        chartContent.innerHTML = null;
+        chartContent.innerHTML = `<canvas id="${name}" width="100%" height="100%"></canvas>`;
+
         this.chart = document.getElementById(name);
     }
 
