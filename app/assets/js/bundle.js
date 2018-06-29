@@ -347,36 +347,41 @@ class app{
             appContent.innerHTML = null;
             appContent.appendChild(projectsList);
 
-            _ConnectorService__WEBPACK_IMPORTED_MODULE_3__["ConnectorService"].getIssuesTop().then((requestTypes)=>{
-                this.topIssuesChart()
-            });
+            this.topIssuesChart()
         });
     }
 
-    topIssuesChart(issuesRequestTypes){
-        let topContentChart = document.createElement('div');
-        topContentChart.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart;
+    topIssuesChart(){
+        _ConnectorService__WEBPACK_IMPORTED_MODULE_3__["ConnectorService"].getIssuesTop().then((requestTypes)=>{
+           if(requestTypes){
+               let topContentChart = document.createElement('div');
+               topContentChart.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart;
 
-        let contentApp = document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID);
-        contentApp.innerHTML = null;
-        contentApp.appendChild(topContentChart);
+               let contentApp = document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID);
+               contentApp.innerHTML = null;
+               contentApp.appendChild(topContentChart);
 
-        let topIssuesChart = new _ChartManager__WEBPACK_IMPORTED_MODULE_2__["ChartManager"]('topChart', _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart);
+               let topIssuesChart = new _ChartManager__WEBPACK_IMPORTED_MODULE_2__["ChartManager"]('topChart', _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart);
 
-        let data = {
-            datasets: [{
-                data: [10, 20, 30]
-            }],
+               let data = [];
+               let labels = [];
+               for(let key in requestTypes){
+                   if(requestTypes.hasOwnProperty(key)){
+                       labels.push(key);
+                       data.push(requestTypes[key].length)
+                   }
+               }
 
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Red',
-                'Yellow',
-                'Blue'
-            ]
-        };
+               data = {
+                   datasets: [{
+                       data: data
+                   }],
+                   labels: labels
+               };
 
-        topIssuesChart.pie(data)
+               topIssuesChart.pie(data)
+           }
+        });
     }
 
     loadTopQueues(){

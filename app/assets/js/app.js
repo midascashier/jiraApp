@@ -32,36 +32,41 @@ class app{
             appContent.innerHTML = null;
             appContent.appendChild(projectsList);
 
-            ConnectorService.getIssuesTop().then((requestTypes)=>{
-                this.topIssuesChart()
-            });
+            this.topIssuesChart()
         });
     }
 
-    topIssuesChart(issuesRequestTypes){
-        let topContentChart = document.createElement('div');
-        topContentChart.id = appUI.topContentChart;
+    topIssuesChart(){
+        ConnectorService.getIssuesTop().then((requestTypes)=>{
+           if(requestTypes){
+               let topContentChart = document.createElement('div');
+               topContentChart.id = appUI.topContentChart;
 
-        let contentApp = document.getElementById(appUI.contentID);
-        contentApp.innerHTML = null;
-        contentApp.appendChild(topContentChart);
+               let contentApp = document.getElementById(appUI.contentID);
+               contentApp.innerHTML = null;
+               contentApp.appendChild(topContentChart);
 
-        let topIssuesChart = new ChartManager('topChart', appUI.topContentChart);
+               let topIssuesChart = new ChartManager('topChart', appUI.topContentChart);
 
-        let data = {
-            datasets: [{
-                data: [10, 20, 30]
-            }],
+               let data = [];
+               let labels = [];
+               for(let key in requestTypes){
+                   if(requestTypes.hasOwnProperty(key)){
+                       labels.push(key);
+                       data.push(requestTypes[key].length)
+                   }
+               }
 
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Red',
-                'Yellow',
-                'Blue'
-            ]
-        };
+               data = {
+                   datasets: [{
+                       data: data
+                   }],
+                   labels: labels
+               };
 
-        topIssuesChart.pie(data)
+               topIssuesChart.pie(data)
+           }
+        });
     }
 
     loadTopQueues(){
