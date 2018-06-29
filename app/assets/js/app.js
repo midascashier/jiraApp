@@ -41,7 +41,11 @@ class app{
     topIssuesChart(issuesRequestTypes){
         let topContentChart = document.createElement('div');
         topContentChart.id = appUI.topContentChart;
-        document.getElementById(appUI.contentID).appendChild(topContentChart);
+
+        let contentApp = document.getElementById(appUI.contentID);
+        contentApp.innerHTML = null;
+        contentApp.appendChild(topContentChart);
+
         let topIssuesChart = new ChartManager('topChart', appUI.topContentChart);
 
         let data = {

@@ -356,7 +356,11 @@ class app{
     topIssuesChart(issuesRequestTypes){
         let topContentChart = document.createElement('div');
         topContentChart.id = _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart;
-        document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID).appendChild(topContentChart);
+
+        let contentApp = document.getElementById(_appUI__WEBPACK_IMPORTED_MODULE_0__["default"].contentID);
+        contentApp.innerHTML = null;
+        contentApp.appendChild(topContentChart);
+
         let topIssuesChart = new _ChartManager__WEBPACK_IMPORTED_MODULE_2__["ChartManager"]('topChart', _appUI__WEBPACK_IMPORTED_MODULE_0__["default"].topContentChart);
 
         let data = {
