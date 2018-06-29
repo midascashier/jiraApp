@@ -50,9 +50,10 @@ class app{
 
                let data = [];
                let labels = [];
-               let countRequestsType = _.size(requestTypes[key]);
                for(let key in requestTypes){
                    if(requestTypes.hasOwnProperty(key)){
+                       let countRequestsType = _.size(requestTypes[key]);
+
                        labels.push(key);
                        data.push(countRequestsType)
                    }
