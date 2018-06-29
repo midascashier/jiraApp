@@ -1,5 +1,6 @@
 import appUI from './appUI'
 import {Project} from './Project'
+import {ChartManager} from './ChartManager'
 import {ConnectorService} from './ConnectorService'
 
 class app{
@@ -25,20 +26,39 @@ class app{
             let appContent = document.getElementById(appUI.contentID);
             projectsList.addEventListener('change', (e)=>{
                 this.currentProject = this.projects[e.currentTarget.value];
-                this.loadTopQueues()
+                this.topIssuesChart()
             });
 
             appContent.innerHTML = null;
             appContent.appendChild(projectsList);
 
-            let queuesContent = document.createElement('div');
-            queuesContent.id = appUI.queuesContent;
-            document.getElementById(appUI.contentID).appendChild(queuesContent);
+            let topContentChart = document.createElement('div');
+            topContentChart.id = appUI.topContentChart;
+            document.getElementById(appUI.contentID).appendChild(topContentChart);
 
-            ConnectorService.getIssuesTop().then((issues)=>{
-                console.log(issues)
+            ConnectorService.getIssuesTop().then((requestTypes)=>{
+                this.topIssuesChart()
             });
         });
+    }
+
+    topIssuesChart(issuesRequestTypes){
+        let topIssuesChart = new ChartManager('topChart', appUI.topContentChart);
+
+        let data = {
+            datasets: [{
+                data: [10, 20, 30]
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Red',
+                'Yellow',
+                'Blue'
+            ]
+        };
+
+        topIssuesChart.pie(data)
     }
 
     loadTopQueues(){
@@ -70,8 +90,6 @@ class app{
             })
         }
     }
-
-
 
     printIssue(issues, summary){
         let count = issues.values.length;
