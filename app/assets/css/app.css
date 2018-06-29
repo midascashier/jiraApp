@@ -17,6 +17,7 @@
 
 #app-content-top-chart{
     width: 40%;
+    overflow: hidden;
 }
 
 .prettyLoader,
