@@ -15,6 +15,10 @@
     -webkit-justify-content: center;
 }
 
+#app-content-top-chart{
+    width: 30%;
+}
+
 .prettyLoader,
 .prettyLoader:before,
 .prettyLoader:after {
